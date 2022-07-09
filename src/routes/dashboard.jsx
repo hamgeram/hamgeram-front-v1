@@ -4,6 +4,7 @@ import TableList from "views/TableList/TableList.jsx";
 import Typography from "views/Typography/Typography.jsx";
 import Icons from "views/Icons/Icons.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
+import {Competitors} from "../views/Competitors/Competitors";
 
 import {
   Dashboard,
@@ -56,6 +57,13 @@ const dashboardRoutes = [
     navbarName: "Notifications",
     icon: Notifications,
     component: NotificationsPage
+  },
+  {
+    path: "/competitors",
+    sidebarName: "رقیب ها",
+    navbarName: "رقیب ها",
+    icon: Notifications,
+    component: Competitors
   },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
 ];
