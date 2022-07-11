@@ -6,12 +6,17 @@ import { Router, Route, Switch } from "react-router-dom";
 import "assets/css/material-dashboard-react.css?v=1.2.0";
 
 import indexRoutes from "routes/index.jsx";
+import loginIndexRoutes from "routes/loginIndex";
 
 const hist = createBrowserHistory();
+
 
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
+       {loginIndexRoutes.map((prop, key) => {
+            return <Route path={prop.path} component={prop.component} key={key} />;
+        })}
       {indexRoutes.map((prop, key) => {
         return <Route path={prop.path} component={prop.component} key={key} />;
       })}

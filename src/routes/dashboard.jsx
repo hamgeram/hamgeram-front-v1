@@ -4,6 +4,7 @@ import TableList from "views/TableList/TableList.jsx";
 import Typography from "views/Typography/Typography.jsx";
 import Icons from "views/Icons/Icons.jsx";
 import NotificationsPage from "views/Notifications/Notifications.jsx";
+import {CompetitorsChart} from "../views/CompetitorsChart/CompetitorsChart";
 import {Competitors} from "../views/Competitors/Competitors";
 
 import {
@@ -16,6 +17,7 @@ import {
 } from "@material-ui/icons";
 
 const dashboardRoutes = [
+
   {
     path: "/dashboard",
     sidebarName: "Dashboard",
@@ -59,10 +61,17 @@ const dashboardRoutes = [
     component: NotificationsPage
   },
   {
-    path: "/competitors",
+    path: "/competitorsChart",
     sidebarName: "رقیب ها",
     navbarName: "رقیب ها",
     icon: Notifications,
+    component: CompetitorsChart
+  },
+  {
+    path: "/competitors",
+    sidebarName: "داشبورد رقبا",
+    navbarName: "داشبورد رقبا",
+    icon: ContentPaste,
     component: Competitors
   },
   { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }

@@ -33,6 +33,17 @@ function Header({ ...props }) {
   return (
     <AppBar className={classes.appBar + appBarClasses}>
       <Toolbar className={classes.container}>
+        <Hidden mdUp>
+          <IconButton
+              className={classes.appResponsive}
+              color="inherit"
+              aria-label="open drawer"
+              onClick={props.handleDrawerToggle}
+          >
+            <Menu />
+          </IconButton>
+        </Hidden>
+
         <div className={classes.flex}>
           {/* Here we create navbar brand, based on route name */}
           <Button href="#" className={classes.title}>
@@ -41,16 +52,6 @@ function Header({ ...props }) {
         </div>
         <Hidden smDown implementation="css">
           <HeaderLinks />
-        </Hidden>
-        <Hidden mdUp>
-          <IconButton
-            className={classes.appResponsive}
-            color="inherit"
-            aria-label="open drawer"
-            onClick={props.handleDrawerToggle}
-          >
-            <Menu />
-          </IconButton>
         </Hidden>
       </Toolbar>
     </AppBar>
