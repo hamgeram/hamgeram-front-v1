@@ -1,11 +1,9 @@
 import React, {useState} from "react";
-import { Grid, InputLabel } from "material-ui";
+import { Grid, InputLabel,TextField} from "material-ui";
 
 import {
-    ProfileCard,
     RegularCard,
     Button,
-    CustomInput,
     ItemGrid
 } from "components";
 
@@ -23,37 +21,42 @@ function LoginPage() {
     return(
         <div>
             <form onSubmit={handleSubmit}>
-            <Grid container>
+            <Grid container
+                  spacing={0}
+                  alignItems="center"
+                  justify="center"
+
+
+                  >
                 <ItemGrid xs={12} sm={12} md={5}>
                     <RegularCard
                         cardTitle="ورود"
                         cardSubtitle="ورود به دشبورد همگرام"
                         content={
                             <div>
-                                <Grid container>
-                                    <ItemGrid xs={12} sm={12} md={6}>
-                                        <CustomInput
-                                            labelText="نام کاربری یا ایمیل"
-                                            id="username"
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
+                                <Grid container
+                                style={{marginBottom:"2vh"}}>
+                                    <ItemGrid xs={12} sm={12} md={12}>
+                                        <TextField
+                                            id="outlined-name"
+                                            fullWidth
+                                            label="نام کاربری یا ایمیل"
                                             onChange={(e) => {
-                                                console.log(e.target.value)
                                                 setUsername(e.target.value);
                                             }}
                                         />
                                     </ItemGrid>
 
                                 </Grid>
-                                <Grid container>
-                                    <ItemGrid xs={12} sm={12} md={6}>
-                                        <CustomInput
-                                            labelText="رمز عبور"
-                                            id="email-address"
-                                            formControlProps={{
-                                                fullWidth: true
-                                            }}
+                                <Grid container
+                                style={{marginBottom:"10vh"}}>
+                                    <ItemGrid xs={12} sm={12} md={12}>
+                                        <TextField
+                                            id="Password"
+                                            label="رمز عبور"
+                                            type="password"
+                                            fullWidth
+                                            hidden
                                             onChange={(e) => {
                                                 setPassword(e.target.value);
                                             }}
@@ -62,8 +65,8 @@ function LoginPage() {
                                 </Grid>
 
                                 <Grid container>
-                                    <ItemGrid xs={12} sm={12} md={6}>
-                                    <a href="">
+                                    <ItemGrid xs={12} sm={5} md={12}>
+                                    <a href="/reg">
                                         {" "}
                                         <i className="zmdi zmdi-lock"></i> رمز عبور خود
                                         را فراموش کرده ام !
@@ -72,7 +75,7 @@ function LoginPage() {
                                 </Grid>
 
                                 <Grid container>
-                                    <ItemGrid xs={12} sm={12} md={6}>
+                                    <ItemGrid xs={12} sm={12} md={12}>
                                         <a href="">
                                             {" "}
                                             <i className="zmdi zmdi-lock"></i>
@@ -84,9 +87,8 @@ function LoginPage() {
                             </div>
                         }
                         footer={<div>
-                            <ItemGrid xs={12} sm={12} md={5}>
+                            <ItemGrid xs={12} sm={12} md={12}>
                                 <Button type="submit" color="primary" fullWidth>ورود به حساب کاربری</Button>
-                                <Button color="info" fullWidth>ساخت حساب کاربری</Button>
                             </ItemGrid>
                             </div>}
                     />

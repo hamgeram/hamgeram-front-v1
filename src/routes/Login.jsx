@@ -5,11 +5,15 @@ import Register from "../views/loginRegister/Register";
 const LoginRoutes = [
     {
         path: "/login",
-        component: LoginPage
+        component: LoginPage,
+        SecurityLevel: 1
     },
     {
         path: "/register",
-        component: Register
+        component: Register,
+        SecurityLevel: 1
+
     },
+    // { redirect: true, path: "/", to: "/admin", navbarName: "Redirect" }
 ]
 export default LoginRoutes;

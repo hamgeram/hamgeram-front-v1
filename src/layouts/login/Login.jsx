@@ -69,8 +69,7 @@ class Login extends React.Component {
             <MuiThemeProvider theme={theme}>
                 <JssProvider jss={jss} generateClassName={generateClassName}>
                     <div className={classes.wrapper}>
-                        <div className={classes.mainPanel} ref="mainPanel">
-                            {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
+                        <div ref="mainPanel">
                             {this.getRoute() ? (
                                 <div className={classes.content}>
                                     <div className={classes.container}>{switchRoutes}</div>
