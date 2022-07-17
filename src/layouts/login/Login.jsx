@@ -14,7 +14,6 @@ import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import { withStyles } from "material-ui";
 
-import {Footer} from "components";
 
 import LoginRoutes from "../../routes/Login";
 

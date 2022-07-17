@@ -14,6 +14,6 @@ const LoginRoutes = [
         SecurityLevel: 1
 
     },
-    // { redirect: true, path: "/", to: "/admin", navbarName: "Redirect" }
+    { redirect: true, path: "/", to: "/login", navbarName: "Redirect" }
 ]
 export default LoginRoutes;

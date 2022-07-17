@@ -15,14 +15,12 @@ import {
   BubbleChart,
   Notifications
 } from "@material-ui/icons";
-import LoginPage from "../views/loginRegister/Login";
-import Register from "../views/loginRegister/Register";
 
 const dashboardRoutes = [
 
 
   {
-    path: "/dashboard",
+    path: "/dashboard/dashboard",
     sidebarName: "Dashboard",
     navbarName: "Material Dashboard",
     icon: Dashboard,
@@ -30,7 +28,7 @@ const dashboardRoutes = [
     SecurityLevel: 2
   },
   {
-    path: "/user",
+    path: "/dashboard/user",
     sidebarName: "User Profile",
     navbarName: "Profile",
     icon: Person,
@@ -39,7 +37,7 @@ const dashboardRoutes = [
 
   },
   {
-    path: "/table",
+    path: "/dashboard/table",
     sidebarName: "Table List",
     navbarName: "Table List",
     icon: ContentPaste,
@@ -47,7 +45,7 @@ const dashboardRoutes = [
     SecurityLevel: 2
   },
   {
-    path: "/typography",
+    path: "/dashboard/typography",
     sidebarName: "Typography",
     navbarName: "Typography",
     icon: LibraryBooks,
@@ -55,7 +53,7 @@ const dashboardRoutes = [
     SecurityLevel: 2
   },
   {
-    path: "/icons",
+    path: "/dashboard/icons",
     sidebarName: "Icons",
     navbarName: "Icons",
     icon: BubbleChart,
@@ -63,7 +61,7 @@ const dashboardRoutes = [
     SecurityLevel: 2
   },
   {
-    path: "/notifications",
+    path: "/dashboard/notifications",
     sidebarName: "Notifications",
     navbarName: "Notifications",
     icon: Notifications,
@@ -71,7 +69,7 @@ const dashboardRoutes = [
     SecurityLevel: 2
   },
   {
-    path: "/competitorsChart",
+    path: "/dashboard/competitorsChart",
     sidebarName: "رقیب ها",
     navbarName: "رقیب ها",
     icon: Notifications,
@@ -79,14 +77,14 @@ const dashboardRoutes = [
     SecurityLevel: 2,
   },
   {
-    path: "/competitors",
+    path: "/dashboard/competitors",
     sidebarName: "داشبورد رقبا",
     navbarName: "داشبورد رقبا",
     icon: ContentPaste,
     component: Competitors,
     SecurityLevel: 2
   },
-  { redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect" }
+  { redirect: true, path: "/dashboard", to: "/dashboard/dashboard", navbarName: "Redirect" }
 ];
 
 export default dashboardRoutes;
