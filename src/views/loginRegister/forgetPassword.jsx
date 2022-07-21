@@ -7,7 +7,7 @@ import {
     ItemGrid
 } from "components";
 
-const verify = () => {
+const forgetPassword = () => {
 
     const [username, setUsername] = useState();
     function handleSubmit(e) {
@@ -59,4 +59,4 @@ const verify = () => {
         </div>
     );
 };
-export default verify;
+export default forgetPassword;

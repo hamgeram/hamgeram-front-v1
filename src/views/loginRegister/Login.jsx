@@ -6,27 +6,71 @@ import {
     Button,
     ItemGrid
 } from "components";
+import {phoneValidator} from "../../utills/phoneValidator";
+import {LoginUser} from "../../actions/user";
+import errorMessage from "../../utills/massage";
 
 function LoginPage() {
 
+    const [passwordV, setPasswordV] = useState("");
+    const [usernameV, setUsernameV] = useState("");
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+
+    function CheckPassword(event) {
+        if (event.toString().length === 0) {
+            setPasswordV("پر کردن این فیلد الزامی است.");
+        } else if (event.toString().length < 6) {
+            setPasswordV("پسورد باید بیش از 6 حرف باشد");
+        } else {
+            setPasswordV("");
+        }
+    }
+
+    function CheckUserName(event) {
+        if (event.toString().length === 0) {
+            setUsernameV("پر کردن این فیلد ازامی است.")
+        } else if(!phoneValidator(event.toString())) {
+            setUsernameV("شماره تلفن معتبر نیست.")
+        } else {
+            setUsernameV("");
+        }
+    }
+
     function handleSubmit(e) {
-        e.preventDefault();
-        console.log(username + ": " + password);
+        try {
+            if (username.toString().length === 0) {
+                setUsernameV("پر کردن این فیلد ازامی است.")
+            } else if(!phoneValidator(username.toString())) {
+                setUsernameV("شماره تلفن معتبر نیست.")
+            } else if (password.toString().length === 0) {
+                setPasswordV("پر کردن این فیلد الزامی است.");
+            } else if (password.toString().length < 6) {
+                setPasswordV("پسورد باید بیش از 6 حرف باشد");
+            }
+            else {
+                let data = new FormData();
+                data.append("phone", username);
+                data.append("password", password);
+                console.log("data");
+                errorMessage("fuck fuck")
+                LoginUser(username)
+            }
+        }
+        catch (e) {
+            console.log("error sagi")
+        }
     }
 
 
 
     return(
         <div>
-            <form onSubmit={handleSubmit}>
+            <form >
             <Grid container
                   spacing={0}
                   alignItems="center"
                   justify="center"
-
-
                   >
                 <ItemGrid xs={12} sm={12} md={5}>
                     <RegularCard
@@ -43,8 +87,11 @@ function LoginPage() {
                                             label="نام کاربری یا ایمیل"
                                             onChange={(e) => {
                                                 setUsername(e.target.value);
+                                                CheckUserName(e.target.value);
+
                                             }}
                                         />
+                                        <div style={{color:"red"}}>{usernameV}</div>
                                     </ItemGrid>
 
                                 </Grid>
@@ -59,14 +106,16 @@ function LoginPage() {
                                             hidden
                                             onChange={(e) => {
                                                 setPassword(e.target.value);
+                                                CheckPassword(e.target.value);
                                             }}
                                         />
+                                        <div style={{color:"red"}}>{passwordV}</div>
                                     </ItemGrid>
                                 </Grid>
 
                                 <Grid container>
                                     <ItemGrid xs={12} sm={5} md={12}>
-                                    <a href="/reg">
+                                    <a href="/">
                                         {" "}
                                         <i className="zmdi zmdi-lock"></i> رمز عبور خود
                                         را فراموش کرده ام !
@@ -76,7 +125,7 @@ function LoginPage() {
 
                                 <Grid container>
                                     <ItemGrid xs={12} sm={12} md={12}>
-                                        <a href="">
+                                        <a href="/register">
                                             {" "}
                                             <i className="zmdi zmdi-lock"></i>
                                             ساخت حساب کاربری
@@ -88,7 +137,7 @@ function LoginPage() {
                         }
                         footer={<div>
                             <ItemGrid xs={12} sm={12} md={12}>
-                                <Button type="submit" color="primary" fullWidth>ورود به حساب کاربری</Button>
+                                <Button onClick={handleSubmit} color="primary" fullWidth>ورود به حساب کاربری</Button>
                             </ItemGrid>
                             </div>}
                     />

@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { createBrowserHistory } from "history";
 import { Router, Route, Switch } from "react-router-dom";
+import { Provider } from "react-redux";
+import { store } from "./store/index";
 
 import "assets/css/material-dashboard-react.css?v=1.2.0";
 
@@ -12,7 +14,8 @@ const hist = createBrowserHistory();
 
 
 ReactDOM.render(
-  <Router history={hist}>
+    <Provider store={store}>
+    <Router history={hist}>
     <Switch>
        {/*{loginIndexRoutes.map((prop, key) => {*/}
        {/*     return <Route path={prop.path} component={prop.component} key={key} />;*/}
@@ -22,6 +25,7 @@ ReactDOM.render(
         return <Route path={prop.path} component={prop.component} key={key} />;
       })}
     </Switch>
-  </Router>,
+  </Router>
+    </Provider>,
   document.getElementById("root")
 );
