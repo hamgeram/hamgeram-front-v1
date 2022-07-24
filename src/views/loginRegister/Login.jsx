@@ -9,6 +9,8 @@ import {
 import {phoneValidator} from "../../utills/phoneValidator";
 import {LoginUser} from "../../actions/user";
 import errorMessage from "../../utills/massage";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function LoginPage() {
 
@@ -16,6 +18,8 @@ function LoginPage() {
     const [usernameV, setUsernameV] = useState("");
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+
+    const notify = () => toast("Wow so easy!");
 
     function CheckPassword(event) {
         if (event.toString().length === 0) {
@@ -138,6 +142,8 @@ function LoginPage() {
                         footer={<div>
                             <ItemGrid xs={12} sm={12} md={12}>
                                 <Button onClick={handleSubmit} color="primary" fullWidth>ورود به حساب کاربری</Button>
+                                <Button onClick={notify} color="primary" fullWidth>ورود به حساب کاربری</Button>
+                                <ToastContainer />
                             </ItemGrid>
                             </div>}
                     />
