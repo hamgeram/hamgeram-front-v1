@@ -22,6 +22,10 @@ import appStyle from "assets/jss/material-dashboard-react/appStyle.jsx";
 
 import image from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
+import {ToastContainer} from "react-toastify";
+import {decodeToken} from "../../utills/decodeToken";
+import {addUser, clearUser} from "../../actions/User";
+import {useDispatch} from "react-redux";
 
 // create custom theme configuration
 const theme = createMuiTheme({
@@ -47,6 +51,24 @@ const switchRoutes = (
 );
 
 class App extends React.Component {
+
+
+  constructor(props) {
+    super(props);
+    // const dispatch = useDispatch();
+    this.state = {
+      token : localStorage.getItem("hamgeramToken"),
+    }
+  //   if (this.state.token) {
+  //     const decodedToken = decodeToken(this.state.token);
+  //     const dateNow = Date.now() / 1000;
+  //
+  //     if (decodedToken.payload.exp < dateNow) {
+  //       localStorage.removeItem("hamgeramToken");
+  //       dispatch(clearUser());
+  //     } else dispatch(addUser(decodedToken.payload.user));
+  //   }
+  }
   state = {
     mobileOpen: false
   };
@@ -65,6 +87,7 @@ class App extends React.Component {
   componentDidUpdate() {
     this.refs.mainPanel.scrollTop = 0;
   }
+
   render() {
     const { classes, ...rest } = this.props;
     return (
@@ -99,6 +122,7 @@ class App extends React.Component {
             </div>
           </div>
         </JssProvider>
+        <ToastContainer />
       </MuiThemeProvider>
     );
   }

@@ -1,5 +1,6 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Grid, InputLabel,TextField} from "material-ui";
+import { createServer } from "miragejs"
 
 import {
     RegularCard,
@@ -7,10 +8,17 @@ import {
     ItemGrid
 } from "components";
 import {phoneValidator} from "../../utills/phoneValidator";
-import {LoginUser} from "../../actions/user";
-import errorMessage from "../../utills/massage";
-import { ToastContainer, toast } from 'react-toastify';
+import errorMessage, {successMessage} from "../../utills/massage";
 import 'react-toastify/dist/ReactToastify.css';
+import {useDispatch} from "react-redux";
+import { useHistory } from "react-router-dom";
+import {registerUser} from "../../services/userService";
+import {decodeToken} from "../../utills/decodeToken";
+import {hideLoading} from "react-redux-loading-bar";
+
+
+//test api
+
 
 function LoginPage() {
 
@@ -19,7 +27,9 @@ function LoginPage() {
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
 
-    const notify = () => toast("Wow so easy!");
+    const dispatch = useDispatch();
+    const history = useHistory();
+
 
     function CheckPassword(event) {
         if (event.toString().length === 0) {
@@ -53,18 +63,39 @@ function LoginPage() {
                 setPasswordV("پسورد باید بیش از 6 حرف باشد");
             }
             else {
-                let data = new FormData();
-                data.append("phone", username);
-                data.append("password", password);
-                console.log("data");
-                errorMessage("fuck fuck")
-                LoginUser(username)
+                const data = {
+                  phone: username.toString(),
+                  password: password.toString()
+                };
+                dispatch(User(data))
             }
         }
         catch (e) {
-            console.log("error sagi")
+            console.log(e)
         }
     }
+
+    const User = (user) => {
+        return async dispatch => {
+            try {
+                const { data, status } = await registerUser(user);
+                if (status === 200) {
+                    successMessage("ورود موفقیت امیز بود!");
+                    localStorage.setItem("hamgeramToken", data.access);
+                    history.replace("/dashboard");
+                }
+                if (status === 401) {
+                    errorMessage("پسورد اشتباه است!")
+                }
+                if (status === 201) {
+                    errorMessage("شماره تلفن اشتباه است!")
+                }
+            }
+            catch (ex) {
+                dispatch(hideLoading());
+            }
+        };
+    };
 
 
 
@@ -142,8 +173,6 @@ function LoginPage() {
                         footer={<div>
                             <ItemGrid xs={12} sm={12} md={12}>
                                 <Button onClick={handleSubmit} color="primary" fullWidth>ورود به حساب کاربری</Button>
-                                <Button onClick={notify} color="primary" fullWidth>ورود به حساب کاربری</Button>
-                                <ToastContainer />
                             </ItemGrid>
                             </div>}
                     />

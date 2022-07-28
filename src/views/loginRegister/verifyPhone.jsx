@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import { Grid, InputLabel,TextField} from "material-ui";
 
 import {
@@ -9,36 +9,47 @@ import {
 import {phoneValidator} from "../../utills/phoneValidator";
 import {useDispatch} from "react-redux";
 import {verifyCode, verifyphone} from "../../services/userService";
-import errorMessage, {successMessage} from "../../utills/massage";
 import {useHistory} from "react-router-dom";
+import errorMessage, {successMessage} from "../../utills/massage";
 
-const forgetPassword = () => {
-
-    const [verifycode, setVerifycode] = useState();
+const verifyPhone = () => {
 
 
-    const dispatch = useDispatch();
+    const [username, setUsername] = useState();
+    const [usernamev, setUsernameV] = useState();
     const history = useHistory();
+    const dispatch = useDispatch();
 
+    function CheckUserName(event) {
+        if (event.toString().length === 0) {
+            setUsernameV("پر کردن این فیلد ازامی است.")
+        } else if(!phoneValidator(event.toString())) {
+            setUsernameV("شماره تلفن معتبر نیست.")
+        } else {
+            setUsernameV("");
+        }
+    }
 
     function handleSubmit(e) {
-       const username = localStorage.getItem("phone");
-       const data = {
-           phone: username,
-           verifycode: verifycode
-       }
-       verifyUser(data);
-    }
+        if(e.toString().length !== 0 && phoneValidator(e.toString())) {
+            const data = {
+                phone: username
+            }
+            dispatch(verifyUser(data));
+        };
+    };
 
     const verifyUser = (user) => {
         try {
             return async dispatch =>{
-                const {data, status} = await verifyCode(user)
-                if (status === 200){
-                    successMessage("ورود موفقیت امیز بود!");
-                    localStorage.setItem("hamgeramToken", data.access);
-                    localStorage.removeItem("phone");
-                    history.replace("/dashboard");
+                const {data, status} = await verifyphone(user)
+                if (status === 201){
+                    successMessage("شماره تلفن تایید شد!");
+                    localStorage.setItem("phone", username)
+                    history.replace("/forget");
+                }
+                if (status === 401) {
+                    errorMessage("شماره تلفن اشتباه است");
                 }
             }
         } catch (e) {
@@ -58,8 +69,8 @@ const forgetPassword = () => {
                 >
                     <ItemGrid xs={12} sm={12} md={5}>
                         <RegularCard
-                            cardTitle="کد تایید را وارد کنید!"
-                            cardSubtitle=""
+                            cardTitle="فراموشی رمز عبور"
+                            cardSubtitle="ابتدا رمز عبور خود را وارد کنید"
                             content={
                                 <div>
                                     <Grid container>
@@ -69,10 +80,12 @@ const forgetPassword = () => {
                                                 fullWidth
                                                 label="شماره تلفن"
                                                 onChange={(e) => {
-                                                    setVerifycode(e.target.value);
+                                                    setUsername(e.target.value);
+                                                    CheckUserName(e.target.value);
                                                 }}
                                             />
                                         </ItemGrid>
+                                        <div style={{color:"red"}}>{usernamev}</div>
                                     </Grid>
                                 </div>
                             }
@@ -89,4 +102,4 @@ const forgetPassword = () => {
         </div>
     );
 };
-export default forgetPassword;
+export default verifyPhone;

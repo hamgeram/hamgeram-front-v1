@@ -18,6 +18,7 @@ import { withStyles } from "material-ui";
 import LoginRoutes from "../../routes/Login";
 
 import appStyle from "assets/jss/material-dashboard-react/appStyle.jsx";
+import {ToastContainer} from "react-toastify";
 
 
 // create custom theme configuration
@@ -80,6 +81,7 @@ class Login extends React.Component {
                         </div>
                     </div>
                 </JssProvider>
+                <ToastContainer />
             </MuiThemeProvider>
         );
     }
