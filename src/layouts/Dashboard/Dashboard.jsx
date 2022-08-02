@@ -43,32 +43,38 @@ const generateClassName = createGenerateClassName();
 const switchRoutes = (
   <Switch>
     {dashboardRoutes.map((prop, key) => {
-      if (prop.redirect)
-        return <Redirect from={prop.path} to={prop.to} key={key} />;
-      return <Route path={prop.path} component={prop.component} key={key} />;
+      if (localStorage.getItem("hamgeramToken")) {
+        if (prop.redirect)
+          return <Redirect from={prop.path} to={prop.to} key={key} />;
+        return <Route path={prop.path} component={prop.component} key={key} />;
+      }
+      else {
+        return <Redirect to={"/login"}/>
+      }
     })}
   </Switch>
 );
 
 class App extends React.Component {
 
-
   constructor(props) {
     super(props);
-    // const dispatch = useDispatch();
     this.state = {
       token : localStorage.getItem("hamgeramToken"),
     }
-  //   if (this.state.token) {
-  //     const decodedToken = decodeToken(this.state.token);
-  //     const dateNow = Date.now() / 1000;
-  //
-  //     if (decodedToken.payload.exp < dateNow) {
-  //       localStorage.removeItem("hamgeramToken");
-  //       dispatch(clearUser());
-  //     } else dispatch(addUser(decodedToken.payload.user));
-  //   }
-  }
+
+    if (this.state.token) {
+      console.log(this.state.token)
+      const decodedToken = decodeToken(this.state.token);
+      const dateNow = Date.now() / 1000;
+
+      if (decodedToken.payload.exp < dateNow) {
+        // localStorage.removeItem("hamgeramToken");
+      };
+    }
+
+
+}
   state = {
     mobileOpen: false
   };
@@ -91,9 +97,11 @@ class App extends React.Component {
   render() {
     const { classes, ...rest } = this.props;
     return (
+
       <MuiThemeProvider theme={theme}>
         <JssProvider jss={jss} generateClassName={generateClassName}>
           <div className={classes.wrapper}>
+            {console.log(this.state.token)}
             <Sidebar
               routes={dashboardRoutes}
               logoText={"همگرام"}

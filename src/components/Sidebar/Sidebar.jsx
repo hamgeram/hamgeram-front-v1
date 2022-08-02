@@ -9,7 +9,7 @@ import {
   List,
   ListItem,
   ListItemIcon,
-  ListItemText
+  ListItemText, SwipeableDrawer
 } from "material-ui";
 
 import { HeaderLinks } from "components";
@@ -65,11 +65,12 @@ const Sidebar = ({ ...props }) => {
     </div>
   );
   return (
+
     <div>
       <Hidden mdUp>
-        <Drawer
+        <SwipeableDrawer
           variant="temporary"
-          anchor="right"
+          anchor="top"
           open={props.open}
           classes={{
             paper: classes.drawerPaper
@@ -90,7 +91,7 @@ const Sidebar = ({ ...props }) => {
               style={{ backgroundImage: "url(" + image + ")" }}
             />
           ) : null}
-        </Drawer>
+        </SwipeableDrawer>
       </Hidden>
       <Hidden smDown>
         <Drawer

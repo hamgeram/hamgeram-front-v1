@@ -15,7 +15,7 @@ createServer({
             } else if (attrs.phone.toString() === "09127982499") {
                 return new Response(200, {"Content-Type" : "application/json"}, {
                     "refresh": "askjdhladsbjkbdasd",
-                        "access": "askjdhladsbjkbdasd"})
+                        "access": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU5MDQxMzkxLCJpYXQiOjE2NTkwMTEzOTEsImp0aSI6ImFlYjg4MzAzZDNiYjQyZDA5YjJkZWY3MDRkOTQ1Y2NlIiwidWlkIjoxfQ.4qaIo0pZMRpVGkuj4kjGbNoe1eoLriIw1bpmdN8ndg4"})
             } else {
                 return new Response(401, {"Content-Type" : "application/json", author: 'Kelvin Omereshone' }, { error: `User with id  not found`});            }
 

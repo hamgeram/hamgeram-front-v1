@@ -81,8 +81,9 @@ function LoginPage() {
                 const { data, status } = await registerUser(user);
                 if (status === 200) {
                     successMessage("ورود موفقیت امیز بود!");
-                    localStorage.setItem("hamgeramToken", data.access);
-                    history.replace("/dashboard");
+                    await localStorage.setItem("hamgeramToken", data.access);
+                    window.location.reload(false);
+                    await history.replace("/dashboard");
                 }
                 if (status === 401) {
                     errorMessage("پسورد اشتباه است!")
