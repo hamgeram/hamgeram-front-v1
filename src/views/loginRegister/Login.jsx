@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from "react";
-import { Grid, InputLabel,TextField} from "material-ui";
-import { createServer } from "miragejs"
+import {Grid, InputLabel, TextField} from "material-ui";
 
 import {
     RegularCard,
-    Button,
-    ItemGrid
+    ItemGrid, Button
 } from "components";
 import {phoneValidator} from "../../utills/phoneValidator";
 import errorMessage, {successMessage} from "../../utills/massage";
@@ -67,6 +65,7 @@ function LoginPage() {
                   phone: username.toString(),
                   password: password.toString()
                 };
+
                 dispatch(User(data))
             }
         }
@@ -81,9 +80,10 @@ function LoginPage() {
                 const { data, status } = await registerUser(user);
                 if (status === 200) {
                     successMessage("ورود موفقیت امیز بود!");
+                    console.log(data)
                     await localStorage.setItem("hamgeramToken", data.access);
-                    window.location.reload(false);
                     await history.replace("/dashboard");
+                    window.location.reload();
                 }
                 if (status === 401) {
                     errorMessage("پسورد اشتباه است!")
@@ -102,7 +102,7 @@ function LoginPage() {
 
     return(
         <div>
-            <form >
+            <form>
             <Grid container
                   spacing={0}
                   alignItems="center"
@@ -151,7 +151,7 @@ function LoginPage() {
 
                                 <Grid container>
                                     <ItemGrid xs={12} sm={5} md={12}>
-                                    <a href="/">
+                                    <a href="/verifyPhone">
                                         {" "}
                                         <i className="zmdi zmdi-lock"></i> رمز عبور خود
                                         را فراموش کرده ام !
@@ -173,7 +173,7 @@ function LoginPage() {
                         }
                         footer={<div>
                             <ItemGrid xs={12} sm={12} md={12}>
-                                <Button onClick={handleSubmit} color="primary" fullWidth>ورود به حساب کاربری</Button>
+                                <Button onClick={handleSubmit}  color="primary" fullWidth>ورود به حساب کاربری</Button>
                             </ItemGrid>
                             </div>}
                     />

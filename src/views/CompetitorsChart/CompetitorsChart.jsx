@@ -1,11 +1,10 @@
 import React from "react";
 import {ChartLine} from "./../../components/Charts/Charts";
 
-import { withStyles, Grid } from "material-ui";
+import { Grid } from "material-ui";
 
 import {
     RegularCard,
-    Table,
     ItemGrid
 } from "components";
 

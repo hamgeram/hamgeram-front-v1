@@ -87,8 +87,9 @@ const Register = () => {
         try {
             const data = {
                 phone: username.toString(),
-                verifycode: parseInt(verify)
+                verifyCode: parseInt(verify)
             };
+            console.log(data)
             dispatch(verifyUser(data))
         }
         catch (e) {

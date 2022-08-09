@@ -70,7 +70,7 @@ class Login extends React.Component {
         this.refs.mainPanel.scrollTop = 0;
     }
     render() {
-        const { classes, ...rest } = this.props;
+        const { classes} = this.props;
         return (
             <MuiThemeProvider theme={theme}>
                 <JssProvider jss={jss} generateClassName={generateClassName}>

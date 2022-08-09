@@ -9,31 +9,62 @@ import {
   ItemGrid
 } from "components";
 
-import avatar from "assets/img/faces/marc.jpg";
+import errorMessage, {successMessage} from "../../utills/massage";
+import {hideLoading} from "react-redux-loading-bar";
+import {useDispatch} from "react-redux";
+import {resetPassword} from "../../services/userService";
+import {ToastContainer} from "react-toastify";
 
 function UserProfile({ ...props }) {
 
   const [password, setPassword] = useState();
-  const [verifyPassword,setVerifyPassword] = useState();
-  const [passwordV, setPasswordV] = useState();
+  const [passwordV, setPasswordV] = useState(false);
+  const dispatch = useDispatch();
 
   function CheckPassword(event) {
     if (event.toString().length === 0) {
-      setPasswordV("پر کردن این فیلد الزامی است.");
-      return (false)
+      setPasswordV(false);
     } else if (event.toString().length < 6) {
-      setPasswordV("پسورد باید بیش از 6 حرف باشد!");
-      return (false)
+      setPasswordV(false);
     }else {
-      setPasswordV("");
-      return(true);
+      setPasswordV(true);
     }
   }
 
-  const x = () => {
-
-
+  const handleChangePassword = () => {
+    if(passwordV === false) {
+      errorMessage("پسورد شما معتبر نیست");
+    } else {
+      const data = {
+          password: password.toString()
+      }
+      try {
+        dispatch(User(data))
+      } catch (e) {
+        errorMessage("مشکلی رخ داده")
+      }
+    }
   }
+
+  const User = (user) => {
+    return async dispatch => {
+        console.log(user)
+        const { data, status } = await resetPassword(user);
+        console.log(data + status)
+        if (status === 200) {
+          successMessage("رمز با موفقیت تغییر یافت!");
+        }
+        if (status === 401) {
+            console.log("hwesd")
+            successMessage("رمز با موفقیت تغییر یافت!");
+            errorMessage("شماره تلفن تایید نشد");
+        }
+      // catch (ex) {
+      //   console.log(ex)
+      //   dispatch(hideLoading());
+      // }
+    };
+  };
 
   return (
     <div>
@@ -53,18 +84,20 @@ function UserProfile({ ...props }) {
                         fullWidth
                         hidden
                         onChange={(e) => {
-                          // setPassword2(e.target.value);
+                          setPassword(e.target.value);
+                          CheckPassword(e.target.value);
                         }}
                     />
                   </ItemGrid>
                 </Grid>
               </div>
             }
-            footer={<Button color="primary">Update Profile</Button>}
+            footer={<Button onClick={handleChangePassword}  color="primary">Update Profile</Button>}
           />
         </ItemGrid>
 
       </Grid>
+        <ToastContainer />
     </div>
   );
 }

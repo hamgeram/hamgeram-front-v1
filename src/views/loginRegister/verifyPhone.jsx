@@ -8,7 +8,7 @@ import {
 } from "components";
 import {phoneValidator} from "../../utills/phoneValidator";
 import {useDispatch} from "react-redux";
-import {verifyCode, verifyphone} from "../../services/userService";
+import {verifyphone} from "../../services/userService";
 import {useHistory} from "react-router-dom";
 import errorMessage, {successMessage} from "../../utills/massage";
 
@@ -33,8 +33,9 @@ const verifyPhone = () => {
     function handleSubmit(e) {
         if(e.toString().length !== 0 && phoneValidator(e.toString())) {
             const data = {
-                phone: username
+                phone: username.toString(),
             }
+            console.log(data)
             dispatch(verifyUser(data));
         };
     };
@@ -43,8 +44,10 @@ const verifyPhone = () => {
         try {
             return async dispatch =>{
                 const {data, status} = await verifyphone(user)
+                console.log(status, data);
                 if (status === 201){
                     successMessage("شماره تلفن تایید شد!");
+
                     localStorage.setItem("phone", username)
                     history.replace("/forget");
                 }

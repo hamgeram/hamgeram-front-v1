@@ -69,7 +69,7 @@ class App extends React.Component {
       const dateNow = Date.now() / 1000;
 
       if (decodedToken.payload.exp < dateNow) {
-        // localStorage.removeItem("hamgeramToken");
+        localStorage.removeItem("hamgeramToken");
       };
     }
 
