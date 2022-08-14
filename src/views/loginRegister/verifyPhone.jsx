@@ -35,7 +35,6 @@ const verifyPhone = () => {
             const data = {
                 phone: username.toString(),
             }
-            console.log(data)
             dispatch(verifyUser(data));
         };
     };
@@ -44,7 +43,6 @@ const verifyPhone = () => {
         try {
             return async dispatch =>{
                 const {data, status} = await verifyphone(user)
-                console.log(status, data);
                 if (status === 201){
                     successMessage("شماره تلفن تایید شد!");
 

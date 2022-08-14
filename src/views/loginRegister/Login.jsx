@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import {registerUser} from "../../services/userService";
 import {decodeToken} from "../../utills/decodeToken";
 import {hideLoading} from "react-redux-loading-bar";
+import FormDialogRegister from "../../dialogs/userInstageramDialog";
 
 
 //test api
@@ -80,7 +81,6 @@ function LoginPage() {
                 const { data, status } = await registerUser(user);
                 if (status === 200) {
                     successMessage("ورود موفقیت امیز بود!");
-                    console.log(data)
                     await localStorage.setItem("hamgeramToken", data.access);
                     await history.replace("/dashboard");
                     window.location.reload();

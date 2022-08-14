@@ -26,6 +26,10 @@ import {ToastContainer} from "react-toastify";
 import {decodeToken} from "../../utills/decodeToken";
 import {addUser, clearUser} from "../../actions/User";
 import {useDispatch} from "react-redux";
+import FormDialog from "../../dialogs/setPage";
+import FormDialogRegister from "../../dialogs/userInstageramDialog";
+import {handleInsgeramUser} from "../../actions/instageramUser";
+import {store} from "../../store";
 
 // create custom theme configuration
 const theme = createMuiTheme({
@@ -61,10 +65,10 @@ class App extends React.Component {
     super(props);
     this.state = {
       token : localStorage.getItem("hamgeramToken"),
+      status: false
     }
 
     if (this.state.token) {
-      console.log(this.state.token)
       const decodedToken = decodeToken(this.state.token);
       const dateNow = Date.now() / 1000;
 
@@ -73,6 +77,7 @@ class App extends React.Component {
       };
     }
 
+    store.dispatch(handleInsgeramUser())
 
 }
   state = {
@@ -101,7 +106,6 @@ class App extends React.Component {
       <MuiThemeProvider theme={theme}>
         <JssProvider jss={jss} generateClassName={generateClassName}>
           <div className={classes.wrapper}>
-            {console.log(this.state.token)}
             <Sidebar
               routes={dashboardRoutes}
               logoText={"همگرام"}
@@ -112,6 +116,8 @@ class App extends React.Component {
               color="blue"
               {...rest}
             />
+            <FormDialogRegister status={this.state.status}/>
+
             <div className={classes.mainPanel} ref="mainPanel">
               <Header
                 routes={dashboardRoutes}

@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Grid, InputLabel, TextField} from "material-ui";
-
+import config from "../../services/config.json"
 import {
   ProfileCard,
   RegularCard,
@@ -11,11 +11,19 @@ import {
 
 import errorMessage, {successMessage} from "../../utills/massage";
 import {hideLoading} from "react-redux-loading-bar";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {resetPassword} from "../../services/userService";
 import {ToastContainer} from "react-toastify";
+import {store} from "../../store";
+import {handleGetCompetitor} from "../../actions/comptitors";
 
 function UserProfile({ ...props }) {
+
+  const user = useSelector(state => state.insgeramUser);
+    let array = [];
+    for (const key in user){
+        array.push(user[key])
+    }
 
   const [password, setPassword] = useState();
   const [passwordV, setPasswordV] = useState(false);
@@ -48,27 +56,42 @@ function UserProfile({ ...props }) {
 
   const User = (user) => {
     return async dispatch => {
-        console.log(user)
         const { data, status } = await resetPassword(user);
-        console.log(data + status)
         if (status === 200) {
           successMessage("رمز با موفقیت تغییر یافت!");
         }
         if (status === 401) {
-            console.log("hwesd")
             successMessage("رمز با موفقیت تغییر یافت!");
             errorMessage("شماره تلفن تایید نشد");
         }
-      // catch (ex) {
-      //   console.log(ex)
-      //   dispatch(hideLoading());
-      // }
     };
   };
 
   return (
     <div>
       <Grid container>
+          {array.map(data => (
+              <ItemGrid xs={12} sm={12} md={8}>
+                  <RegularCard
+                      cardTitle="پروفایل اینستاگرام"
+                      content={
+                          <div>
+                              <Grid container>
+                                  <ItemGrid>
+                                      <img src={config.localapi+data.image}/>
+                                  </ItemGrid>
+
+                                  <ItemGrid xs={12} sm={12} md={12}>
+                                      {data.bio}
+                                  </ItemGrid>
+
+                              </Grid>
+                          </div>
+                      }
+                  />
+              </ItemGrid>
+          ))}
+
         <ItemGrid xs={12} sm={12} md={8}>
           <RegularCard
             cardTitle="ریست کردن پسورد"
